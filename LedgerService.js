@@ -92,25 +92,47 @@ LedgerService.prototype.halt_service = function() {
   this.server.removeAllListeners('listening');
   this.server.close(); 
 };
-
-LedgerService.prototype.POST = function(request,response,data) {
-  var uri = url.parse(request.url,true)
-  RH(request)
-  PJ(data);
-  out = ";"+data['callback']+"("+data['JSON']+");";
-  PJ(out);
-  response.writeHead(200, 'from one post to another - walking the way',{
-        'Access-Control-Allow-Origin': 'http://ledger.robotarmyma.de:3000',
-        'Content-Length': out.length,
-        'Content-Type': 'application/javascript;charset=utf-8',
-        'Connection' : 'like a leaf fluttering on the surface',
-        'Body' : out,
+LedgerService.prototype.POST = {
+init:function(request,response) {
+  var self = this;
+  self.payload = "";
+  self.request = request;
+  self.response = response;
+  self.request.addListener('data',function(chunk) {
+      PJ('data');
+      self.data.apply(self,[chunk]);
+    });
+  request.addListener('end',function() {
+      self.end.apply(self);
+    PJ('end');
   });
-  response.write(out,'utf8');
-  response.end();
-  request.emit('close');
-}
-LedgerService.prototype.OPTIONS = function(request,response) {
+},
+data:function(chunk) {
+  var self = this;
+  self.payload += chunk;
+},
+end:function() {
+  var self = this;
+  var uri = url.parse(self.request.url,true)
+  var payload = querystring.parse(self.payload);
+  RH(self.request)
+  LedgerService.prototype.ledger.append(payload,function(err,docs) {
+    var out = JSON.stringify(docs);
+    self.response.writeHead(200, 
+                            'from one post to another - walking the way',{
+                            'Access-Control-Allow-Origin': 'http://ledger.robotarmyma.de:3000',
+                            'Content-Length': out.length,
+                            'Content-Type': 'application/javascript;charset=utf-8',
+                            'Connection' : 'like a leaf fluttering on the surface',
+                            'Error' : err,
+                            });
+                          PJ(docs);
+    self.response.write(out,'utf8');
+    self.response.end();
+  });
+}};
+LedgerService.prototype.OPTIONS = {
+  init:function(request,response) {
   var self = this;
   RH(request);
   response.writeHead(200, {
@@ -118,26 +140,39 @@ LedgerService.prototype.OPTIONS = function(request,response) {
     'Access-Control-Allow-Origin': 'http://ledger.robotarmyma.de:3000',
   });
   response.end();
+  },
+  end:function() {}
 };
 
-LedgerService.prototype.GET = function(request,response) {
-  var self = this;
-  self.ledger.find_all(function(err,items){
-    raise_if(err);
+LedgerService.prototype.GET = {
+  init:function(request,response) {
+    var self = this;
+  self.request = request;
+  self.response = response;
+  self.end();
+ },
+end:function(){
+    var self = this;
+  LedgerService.prototype.ledger.find_all(function(err,items){
+    var body = "";
     var callback = undefined;
-    var query = url.parse(request.url,true).query
+    var query = url.parse(self.request.url,true).query
     if (query != undefined)
       callback = query['callback'];
     if (callback != undefined){
       var body = ";"+callback+"("+J(items)+");";
-      response.writeHead(200, {
+    }
+      self.response.writeHead(200, {
+        'Access-Control-Allow-Origin': 'http://ledger.robotarmyma.de:3000',
         'Content-Length': body.length,
         'Content-Type': 'application/json;charset=utf-8'
       });
-      response.write(body,'utf8')
-      response.end();
-    }
-  });
+      self.response.write(body,'utf8')
+      self.response.end();
+      PJ(body);
+      PJ('SENT RESPONSE.END');
+  }); 
+},
 };
 
 LedgerService.prototype.service =  function() {
@@ -150,17 +185,8 @@ LedgerService.prototype.service =  function() {
     var method = request.method;
     PJ(method);
     request.setEncoding('UTF8');
-    request.addListener('data',function(chunk) {
-      PJ(111);
-      data += chunk;
+    self[method].init.apply(self[method],[request,response]);
     });
-    request.addListener('end',function() {
-      PJ(222);
-      var json = querystring.parse(data);
-      self[method](request,response,json);
-    });
-    PJ(1000); 
-  });
   self.server.addListener('close',function(errno) {
     sys.puts('close ' + errno);
   });
