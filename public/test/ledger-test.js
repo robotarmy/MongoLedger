@@ -7,7 +7,7 @@
     var item = {pony :'cake', name : 'biscuit'};
     $.ajaxSetup({
       url: 'http://ledger.robotarmyma.de:7001',
-        dataType:'jsonp',
+        dataType:'json',
     });
     asyncTest("POST one with jsonp", 2, function(){
       $.ajax({
