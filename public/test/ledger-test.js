@@ -7,31 +7,29 @@
     var item = {pony :'cake', name : 'biscuit'};
     $.ajaxSetup({
       url: 'http://ledger.robotarmyma.de:7001',
-        dataType:'json',
+        dataType:'jsonp',
     });
-    asyncTest("POST one with jsonp", 2, function(){
+
+    asyncTest("POST one with jsonp", 3, function(){
       $.ajax({
         type:'POST',
-        data: {JSON:JSON.stringify(item)},
+        data: {'json' :JSON.stringify(item)},
         success: function(data,status,xhr) {
           ok(true,"Cross Domain Access-Control-Allow-Origin");
           same('success',status);
-        },
-        error:function() {
-          ok(true);
-          ok(false,"error - on post");
+          ok(data[0]._id != undefined, 'RESPONSE HAS _ID');
         },
       });
       setTimeout(function() {  
         start();  
-      }, 2000);  
+      }, 1000);  
 
     });
 
     asyncTest("Get All After POST with callback", 1, function(){
       $.ajax({
         type:'POST',
-        data: JSON.stringify(item),
+        data: {'json' : JSON.stringify(item)},
         success: function(data,status,xhr) {
           $.ajax({
             type:'GET',
@@ -43,7 +41,7 @@
       });
       setTimeout(function() {  
         start();  
-      }, 2000);  
+      }, 1000);  
 
     });
 
