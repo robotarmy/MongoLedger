@@ -3,7 +3,9 @@
 require.paths.push(__dirname);
 require.paths.push(__dirname + '/deps');
 require.paths.push(__dirname + '/lib');
-
+require('Ledger');
+require('LedgerService');
+require('mongodb');
 try {
     var testrunner = require('nodeunit').testrunner;
 }
