@@ -26,15 +26,17 @@
 
     });
 
-    asyncTest("Get All After POST with callback", 1, function(){
+    asyncTest("Get Find _ID of POST with callback", 1, function(){
       $.ajax({
         type:'POST',
         data: {'json' : JSON.stringify(item)},
         success: function(data,status,xhr) {
           $.ajax({
             type:'GET',
+            data: {'find' : {'_id':data[0]._id} },
             success: function(jarray) {
-              same(jarray,item);
+              delete jarray[0]['_id'];
+              same(jarray,[item]);
             },
           });
         },
