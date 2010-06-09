@@ -1,0 +1,118 @@
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-06-09 16:13:01) [GET]
+
+ActionController::RoutingError (No route matches "/ledger/new" with {:method=>:get}):
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-06-09 16:13:06) [GET]
+
+ActionController::RoutingError (No route matches "/ledger/create" with {:method=>:get}):
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing LedgersController#new (for 127.0.0.1 at 2010-06-09 16:13:38) [GET]
+
+ActionController::UnknownAction (No action responded to new. Actions: ):
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing LedgersController#index (for 127.0.0.1 at 2010-06-09 16:16:35) [GET]
+  [4;36;1mLedger Load (0.0ms)[0m   [0;1mSQLite3::SQLException: no such table: ledgers: SELECT * FROM "ledgers" [0m
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: ledgers: SELECT * FROM "ledgers" ):
+  app/controllers/ledgers_controller.rb:5:in `index'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/o_o/.rvm/rubies/ree-1.8.7-2010.01/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (55.5ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("schema_migrations")[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateLedgers (20100609231059)
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateLedgers (20100609231059)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "ledgers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "name2" varchar(255), "number" integer, "number2" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100609231059')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("ledgers")[0m
+
+
+Processing LedgersController#index (for 127.0.0.1 at 2010-06-09 16:19:51) [GET]
+  [4;36;1mLedger Load (0.4ms)[0m   [0;1mSELECT * FROM "ledgers" [0m
+Rendering template within layouts/ledgers
+Rendering ledgers/index
+Completed in 21ms (View: 16, DB: 0) | 200 OK [http://ledger.robotarmyma.de/ledgers/]
+
+
+Processing LedgersController#new (for 127.0.0.1 at 2010-06-09 16:19:54) [GET]
+Rendering template within layouts/ledgers
+Rendering ledgers/new
+Completed in 18ms (View: 13, DB: 0) | 200 OK [http://ledger.robotarmyma.de/ledgers/new]
