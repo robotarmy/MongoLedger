@@ -1,12 +1,14 @@
 var initalize_ledger = function()
 {
-  $.getJSON('http://localhost:8001/hi.json?callback=?', function(jarray) {  
-    var list = ledger_list();
-    jarray.forEach(function(json) {
-      id = json._id ;
-      delete json['_id'];
-      $(list).append(create_dom_from(id,json));
-    });
+  $.ajax({type:'GET',
+         success:function(jarray) {  
+           var list = ledger_list();
+           jarray.forEach(function(json) {
+             id = json._id ;
+             delete json['_id'];
+             $(list).append(create_dom_from(id,json));
+           });
+         }
   });  
 };
 
@@ -17,19 +19,16 @@ var create_dom_from = function(id,object)
   node.attr('id',"item_"+id);
   node.addClass("item");
   var properties = []
-  for(var key in object) {
-    property = {};
-    property.kind = key;
-    property.type = 'text';
-    property.value = object[key];
-
-    $(prop_node).append(create_dom_ledger_item(property));
-    properties[properties.length] = property;
+  if ('properties' in object) {
+    object.properties.forEach(function(property) {
+      $(prop_node).append(create_dom_ledger_item(property));
+      properties[properties.length] = property;
+    });
   }
-
   $(node).append(prop_node);
   $(node).append(create_dom_ledger_form(properties));
   return node;
+
 };
 
 var create_dom_ledger_form = function(properties)
@@ -59,11 +58,12 @@ var create_dom_ledger_item = function(property)
 
 var ledger_form_to_struct = function(focus)
 {
+  focus = $(focus);
   var name = $('#'+focus.attr('id')+' .name input').val();
   var amount = $('#'+focus.attr('id')+' .amount input').val();
   var properties = [{ kind:'amount',value:amount,type:'dollars'},
     { kind:'name',value:name,type:'text'}];
-    return properties;
+    return {properties:properties};
 };
 
 var ledger_list = function()
@@ -79,25 +79,34 @@ var ledger_size = function()
 var update_ledger_from_form = function(focus)
 {  
   var item = ledger_form_to_struct(focus);
-  $.ajax('PUT','http://localhost:8002/', { callback:'?',_id: focus.attr('id'),json: JSON.stringify(item) } , function(json) {
-    $('#'+json.id).replace(create_dom_from(json.id,json.properties));
-    switch_to_edit_form(focus);
+  $.ajax({type: 'PUT',
+         data : { _id: focus.attr('id'),json: JSON.stringify(item) },
+         success: function(json) {
+           $('#'+json.id).replace(create_dom_from(json.id,json.properties));
+           switch_to_edit_form(focus);
+         }
   });
 };
 
 var insert = function() {
-
+  create_ledger_from_form('#create_ledger_form');
 }
 
 var create_ledger_from_form = function(focus)
 {
   var id = ledger_size();
   var item = ledger_form_to_struct(focus);
-  
-  $.ajax('POST','http://localhost:8001/', {callback: '?', json: JSON.stringify(item) } , function(id) {
-    var item = create_dom_from(id,item);
-    $('.ledger .list #create_ledger_form').after(item);
-  },"json");
+
+  $.ajax({type: 'POST',
+         data:{json: JSON.stringify(item) },
+         success: function(data) {
+           id = data[0]._id;
+           delete data[0]['_id'];
+           var object = data[0];
+           var ledger_item = create_dom_from(id,object);
+           $('.ledger .list #create_ledger_form').after(ledger_item);
+         }
+  });
 };
 
 var decorate_textfields = function()
@@ -221,6 +230,10 @@ var init_keybindings = function(){
 };
 
 $(document).ready(function(){
+  $.ajaxSetup({
+    url:'http://ledger.robotarmyma.de:7001/',
+      dataType:'jsonp'
+  });
   init_keybindings();
   decorate_textfields();  
   initalize_ledger();
