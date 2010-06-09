@@ -9,8 +9,6 @@
     <div>
       <article> <!-- semantic wrapper for content -->
       </article>
-      <article>
-      </article>
     </div>
     <aside> <!-- tangent associated -->
     </aside>
@@ -25,20 +23,24 @@
    The above statement is marked as a javasript comment
    to prevent the javascript parser from interpteting it
  */
-  Benchmark = function(){};
+  var Benchmark = function(){};
   Benchmark.constructor = Benchmark;
   Benchmark.prototype = new Function;
-  Benchmark.prototype.run = function(count,function() {
-      var self = this;
+  Benchmark.prototype.run = function(count,callback) {
+    var self = this;
+    self.count = count;
       for(var i = 0; i < count; i++) {
-      function.apply(self,[i,self.update_records]);
+        callback.apply(self,[i,self.update_records]);
       }
-  });
+  };
   Benchmark.prototype.records = {};
   Benchmark.prototype.update_records = function(rid,start,end) {
     var self = this;
     setTimeout(function() {
-        self.records[i] = {start:start,end:end,delta:end-start};  
+        self.records[rid] = {start:start,end:end,delta:end-start};  
+        if (self.count == self.records.length) {
+         self.results('body article');
+        };
     },10);
   };
 Benchmark.prototype.results = function(element) {
@@ -55,20 +57,20 @@ Benchmark.prototype.results = function(element) {
       div.append($('<span>'+average+' average ms</startgkpan>'));
       div.append($('<span>'+calls+' calls</span>'));
       $(element).append(div);
-    },10);
+    },100);
   };
-jQuery(document).ready(function(){
+$(document).ready(function(){
     var doc = {
-      name: 'This is a String value'
-      name2: 'This is a String value2'
-      number: 1000099042;
-      number2: 199042;
-      counter:0;
+      name: 'This is a String value',
+      name2: 'This is a String value2',
+      number: 1000099042,
+      number2: 199042,
+      counter:0
     };
 
-    var self = this;
     var inserts = new Benchmark();
-    inserts.run(1000,new function(current_count,record_callback) {
+    inserts.run(1,function(current_count,record_callback) {
+      var self = this;
       var start = new Date().getTime();
       doc['counter'] = current_count;
       $.ajax({
@@ -80,8 +82,8 @@ jQuery(document).ready(function(){
           record_callback.apply(self,[current_count,start,end]);
         }
       });
-    });
-  });
+      });
+     });
 /* CDATA line end cannot contain spaces or line breaks */
 //]]>
 </script>
