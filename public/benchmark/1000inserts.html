@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <nav> <!-- contains navigation related elements -->
+    </nav>
+    <div>
+      <article> <!-- semantic wrapper for content -->
+      </article>
+      <article>
+      </article>
+    </div>
+    <aside> <!-- tangent associated -->
+    </aside>
+  </body>
+</html>
+<!-- load javascript libraries late : optimization : may be extra -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<!-- Important to ensure that javascript does not get executed out of order -->
+<script type="text/javascript">
+  //<![CDATA[
+/* This is marked CDATA - it is not parsed by the x(ht)ml parser
+   The above statement is marked as a javasript comment
+   to prevent the javascript parser from interpteting it
+ */
+  Benchmark = function(){};
+  Benchmark.constructor = Benchmark;
+  Benchmark.prototype = new Function;
+  Benchmark.prototype.run = function(count,function() {
+      var self = this;
+      for(var i = 0; i < count; i++) {
+      function.apply(self,[i,self.update_records]);
+      }
+  });
+  Benchmark.prototype.records = {};
+  Benchmark.prototype.update_records = function(rid,start,end) {
+    var self = this;
+    setTimeout(function() {
+        self.records[i] = {start:start,end:end,delta:end-start};  
+    },10);
+  };
+Benchmark.prototype.results = function(element) {
+  var self = this;
+  var div = $('<div></div>');
+  setTimeout(function() {
+      var tally = 0;
+      for(var i = 0; i< self.records.length;i++) {
+        tally += self.records[i]['delta'];
+        }
+      var calls = self.records.length; 
+      var average = tally / calls;
+      div.append($('<span>'+tally+' ms</span>'));
+      div.append($('<span>'+average+' average ms</startgkpan>'));
+      div.append($('<span>'+calls+' calls</span>'));
+      $(element).append(div);
+    },10);
+  };
+jQuery(document).ready(function(){
+    var doc = {
+      name: 'This is a String value'
+      name2: 'This is a String value2'
+      number: 1000099042;
+      number2: 199042;
+      counter:0;
+    };
+
+    var self = this;
+    var inserts = new Benchmark();
+    inserts.run(1000,new function(current_count,record_callback) {
+      var start = new Date().getTime();
+      doc['counter'] = current_count;
+      $.ajax({
+        url: 'http://ledger.robotarmyma.de:7001',
+        type: 'POST',
+        data: {json: JSON.stringify(doc)},
+        success : function() { 
+        var end = new Date().getTime();
+          record_callback.apply(self,[current_count,start,end]);
+        }
+      });
+    });
+  });
+/* CDATA line end cannot contain spaces or line breaks */
+//]]>
+</script>
+
