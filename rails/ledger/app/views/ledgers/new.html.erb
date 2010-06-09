@@ -1,0 +1,27 @@
+<h1>New ledger</h1>
+
+<% form_for(@ledger) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :name2 %><br />
+    <%= f.text_field :name2 %>
+  </p>
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.label :number2 %><br />
+    <%= f.text_field :number2 %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', ledgers_path %>
