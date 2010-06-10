@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <nav> <!-- contains navigation related elements -->
+    </nav>
+    <div>
+      <article> <!-- semantic wrapper for content -->
+      </article>
+    </div>
+    <aside> <!-- tangent associated -->
+    </aside>
+  </body>
+</html>
+<!-- load javascript libraries late : optimization : may be extra -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="/public/javascript/raphael.js"></script>
+<script type="text/javascript" src="/public/javascript/g.raphael.js"></script>
+<script type="text/javascript" src="/public/javascript/g.bar.js"></script>
+<script type="text/javascript" src="/public/javascript/benchmark.js"></script>
+<!-- Important to ensure that javascript does not get executed out of order -->
+<script type="text/javascript">
+  //<![CDATA[
+/* This is marked CDATA - it is not parsed by the x(ht)ml parser
+   The above statement is marked as a javasript comment
+   to prevent the javascript parser from interpteting it
+ */
+  var $ = jQuery;
+$(document).ready(function(){
+    var doc = {
+      name: 'This is a String value',
+      name2: 'This is a String value2',
+      number: 1000099042,
+      number2: 199042,
+      counter: 0
+    };
+      var start = new Date().getTime();
+
+    var inserts = new Benchmark();
+
+    inserts.run(100,function(current_count) {
+      var self = this;
+      self.update_record_start(current_count,new Date().getTime());
+      doc.counter = current_count;
+      $.ajax({
+        url: 'http://ledger.robotarmyma.de:7001',
+        type: 'POST',
+        data: {json: JSON.stringify(doc)},
+        success : function(data) { 
+          var end = new Date().getTime();
+          self.update_record_end(current_count,end);
+        }
+      });
+      });
+     });
+/* CDATA line end cannot contain spaces or line breaks */
+//]]>
+</script>
+
