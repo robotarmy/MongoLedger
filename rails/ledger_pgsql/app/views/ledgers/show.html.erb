@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @ledger.name %>
+</p>
+
+<p>
+  <b>Name2:</b>
+  <%=h @ledger.name2 %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%=h @ledger.number %>
+</p>
+
+<p>
+  <b>Number2:</b>
+  <%=h @ledger.number2 %>
+</p>
+
+
+<%= link_to 'Edit', edit_ledger_path(@ledger) %> |
+<%= link_to 'Back', ledgers_path %>
