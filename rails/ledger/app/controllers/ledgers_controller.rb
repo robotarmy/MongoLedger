@@ -2,18 +2,15 @@ class LedgersController < ApplicationController
   # GET /ledgers
   # GET /ledgers.xml
   def index
-    @ledgers = Ledger.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @ledgers }
-    end
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
+    head :ok
   end
 
   # GET /ledgers/1
   # GET /ledgers/1.xml
   def show
     @ledger = Ledger.find(params[:id])
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +22,7 @@ class LedgersController < ApplicationController
   # GET /ledgers/new.xml
   def new
     @ledger = Ledger.new
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +38,10 @@ class LedgersController < ApplicationController
   # POST /ledgers
   # POST /ledgers.xml
   def create
+    params[:ledger] ||=  JSON.parse(params['json'])
     @ledger = Ledger.new(params[:ledger])
+
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
 
     respond_to do |format|
       if @ledger.save
@@ -57,6 +58,7 @@ class LedgersController < ApplicationController
   # PUT /ledgers/1.xml
   def update
     @ledger = Ledger.find(params[:id])
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
 
     respond_to do |format|
       if @ledger.update_attributes(params[:ledger])
@@ -74,6 +76,7 @@ class LedgersController < ApplicationController
   def destroy
     @ledger = Ledger.find(params[:id])
     @ledger.destroy
+    response['Access-Control-Allow-Origin']= 'http://ledger.robotarmyma.de:3000'
 
     respond_to do |format|
       format.html { redirect_to(ledgers_url) }

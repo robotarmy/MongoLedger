@@ -94,7 +94,7 @@ $(document).ready(function(){
       self.update_record_start(current_count,new Date().getTime());
       doc.counter = current_count;
       $.ajax({
-        url: 'http://ledger.robotarmyma.de:7001',
+        url: 'http://ledger.robotarmyma.de:5000/ledgers',
         type: 'POST',
         data: {json: JSON.stringify(doc)},
         success : function(data) { 

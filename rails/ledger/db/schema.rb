@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20100609231059) do
     t.string   "name2"
     t.integer  "number"
     t.integer  "number2"
+    t.integer  "counter"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,7 +5,7 @@ class CreateLedgers < ActiveRecord::Migration
       t.string :name2
       t.integer :number
       t.integer :number2
-
+      t.integer :counter
       t.timestamps
     end
   end
