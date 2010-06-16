@@ -3,7 +3,7 @@ Benchmark.constructor = Benchmark;
 Benchmark.prototype = {};
 Benchmark.prototype.run = function(count,url,callback,finished_callback) {
   var self = this;
-  self.records['start'] = new Date().getTime();
+  self['start'] = new Date().getTime();
   self.count = count;
   self.collected = 0;
   self.url = url;
@@ -15,30 +15,26 @@ Benchmark.prototype.run = function(count,url,callback,finished_callback) {
 Benchmark.prototype.records = {};
 Benchmark.prototype.update_record_start = function(rid,start) {
   var self = this;
-  setTimeout(function(){
   self.records[rid] = {};
-  self.records[rid].start = start},1);
+  self.records[rid].start = start;
 };
 Benchmark.prototype.update_record_end = function(rid,end) {
   var self = this;
-  setTimeout(function() {
   self.records[rid].end = end; 
   self.records[rid].delta = end - self.records[rid].start ; 
   self.collected++;
   if (self.count == self.collected) {
-    self.records['finish'] = new Date().getTime();
+    self['finish'] = new Date().getTime();
     self.finished_callback.apply(self,[]);
-  }},1);
+  }
 };
 Benchmark.prototype.results = function(element) {
   var self = this;
   var div = $('<div></div>');
   var tally = 0;
   var length = 0;
-  var bstart = self.records.start;
-  var bend =   self.records.finish;
-  delete self.records['start'];
-  delete self.records['finish'];
+  var bstart = self.start;
+  var bend =   self.finish;
   var elapsed_time_in_seconds = (bend-bstart) / 1000;
   div.append($('<div> Real Elapsed Time '+elapsed_time_in_seconds+' seconds</div>'));
   for(var rec in self.records) {
