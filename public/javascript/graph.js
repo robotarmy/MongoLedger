@@ -16,7 +16,7 @@ Graph.prototype.graph_line = function(name,selector,xarray,yarray,labels) {
    };
   };
   paper.g.text(100,10,name);
-  paper.g.linechart(25,10,640,480,xarray,yarray,{axis : '0 0 1 1'});
+  paper.g.linechart(50,10,800,600,xarray,yarray,{axis : '0 0 1 1'});
 
 }
 
