@@ -1,1 +1,4 @@
-rails/ledger_sqlite/db/development.sqlite3
+*.sqlite3
+*.log
+*.swp
+.*.swp

@@ -4,20 +4,22 @@
     module("Single Post Benchmark");
     urls = [
       'http://ledger.robotarmyma.de:7001',
+      'http://ledger.robotarmyma.de:9000/ledgers',
       'http://ledger.robotarmyma.de:5000/ledgers',
-      'http://ledger.robotarmyma.de:5001/ledgers',
-      'http://ledger.robotarmyma.de:5002/ledgers',
-      'http://ledger.robotarmyma.de:5003/ledgers'
+    //  'http://ledger.robotarmyma.de:5001/ledgers',
+    // 'http://ledger.robotarmyma.de:5002/ledgers',
+    //  'http://ledger.robotarmyma.de:5003/ledgers'
     ];
     LABELS = [
       'NODE.JS + node-mongo-native driver + glue',
-      '1 Thin Rails + Mongomapper ',
-      '1 Thin Rails + Mysql',
-      '1 Thin Rails + PostGreSQL',
+      'This + Rackup + ActiveRecord',
+     // '1 Thin Rails + Mongomapper ',
+     // '1 Thin Rails + Mysql',
+     // '1 Thin Rails + PostGreSQL',
       '1 Thin Rails + SQLITE'
     ];
     
-    var NumberOfCalls = 100;
+    var NumberOfCalls = 1000;
 
     var doc = {
       name: 'This is a String value',
@@ -51,7 +53,6 @@
           this._history = undefined; 
         }  
     };
-    for(j = 0; j < 10; j++) {
     for(i = 0; i < urls.length; i++) {
       (function(url,fg) { 
         module("["+url+"] Insert");
@@ -75,18 +76,17 @@
           var at = this;
           var finished_callback = function() {
             var self = this;
-          //  var graph_id = new Date().getTime();
-          //  var div = $("<div id='"+graph_id+"'><div class='graph' id='graph_"+graph_id+"'></div></div>");
-          //  $('body article').append(div);
-          //  self.results('body article #'+graph_id);
-          //  new Graph().graph('graph_'+graph_id,self.records,500);  
+            var graph_id = new Date().getTime();
+            var div = $("<div id='"+graph_id+"'><div class='graph' id='graph_"+graph_id+"'></div></div>");
+            $('body article').append(div);
+            self.results('body article #'+graph_id);
+            new Graph().graph('graph_'+graph_id,self.records,500);  
             fg(self.records);
             start();
           };
           insert.run(NumberOfCalls,url,callback,finished_callback);
         });
       })(urls[i],fullGraph);
-    }
     }
   });
 })();
