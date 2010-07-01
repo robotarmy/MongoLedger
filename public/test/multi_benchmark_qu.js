@@ -5,15 +5,17 @@
     urls = [
       'http://ledger.robotarmyma.de:7001',
       'http://ledger.robotarmyma.de:9000/ledgers',
+      'http://ledger.robotarmyma.de:9001/ledgers',
       'http://ledger.robotarmyma.de:5000/ledgers',
-    //  'http://ledger.robotarmyma.de:5001/ledgers',
-    // 'http://ledger.robotarmyma.de:5002/ledgers',
+      'http://ledger.robotarmyma.de:5001/ledgers',
+     //'http://ledger.robotarmyma.de:5002/ledgers',
     //  'http://ledger.robotarmyma.de:5003/ledgers'
     ];
     LABELS = [
       'NODE.JS + node-mongo-native driver + glue',
-      'This + Rackup + ActiveRecord',
-     // '1 Thin Rails + Mongomapper ',
+      'Thin + Rackup + Mongomapper',
+      'Thin + Rackup + Activerecords SQLITE',
+      '1 Thin Rails + Mongomapper ',
      // '1 Thin Rails + Mysql',
      // '1 Thin Rails + PostGreSQL',
       '1 Thin Rails + SQLITE'
@@ -48,7 +50,7 @@
           var graph_id = new Date().getTime();
           var div = $("<div class='all_graph' id='graph_"+graph_id+"'></div>");
           $('#all_graph').append(div);
-          var name = "All Servers rountrip Time in MS ";
+          var name = NumberOfCalls + " Roundrip ASYNC JSONP Posts to Middleware+DB";
           new Graph().graph_line(name,'graph_'+graph_id,this._x,this._history,LABELS);  
           this._history = undefined; 
         }  
@@ -80,7 +82,7 @@
             var div = $("<div id='"+graph_id+"'><div class='graph' id='graph_"+graph_id+"'></div></div>");
             $('body article').append(div);
             self.results('body article #'+graph_id);
-            new Graph().graph('graph_'+graph_id,self.records,500);  
+            var g = new Graph().graph('graph_'+graph_id,self.records,500);  
             fg(self.records);
             start();
           };
