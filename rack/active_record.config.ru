@@ -1,15 +1,12 @@
 #\ -w -p 9000
 require 'rubygems'
-require 'mongo_mapper'
-class Ledger
-MongoMapper.database = 'mongo_rails'
-  include MongoMapper::Document
-  
-  key :name, String
-  key :name2, String
-  key :number, Integer
-  key :number2, Integer
-  key :counter, Integer
+require 'activerecord'
+
+ActiveRecord::Base.establish_connection(
+  :adapter => 'sqlite3',
+  :dbfile =>  'development.sqlite3'
+)
+class Ledger < ActiveRecord::Base
 end
 
 
