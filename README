@@ -1,2 +1,16 @@
+I have a /etc/host entry 
+ledger.robotarmyma.de 127.0.0.1
+
+
+mkdir -p db/data
+start_mongo.sh
+node app.js
+node ls_app.js # start the database server for the node test
+./rack has two configs for thin
+./rails has 4 rails envs
+
+
 http://ledger.robotarmyma.de:3000/public/test/multi_benchmark.html
+
+
 
