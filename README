@@ -1,3 +1,6 @@
+This was tested on a 0.1.x release of node. The core api has changed.
+
+---
 I have a /etc/host entry 
 ledger.robotarmyma.de 127.0.0.1
 
