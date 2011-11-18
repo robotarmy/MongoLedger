@@ -19,8 +19,7 @@ app = proc do |env|
   if req.post?
     req.params[:ledger] ||=  JSON.parse(req.params['json'])
     callback = req.params['callback']
-    ledger = Ledger.new(req.params[:ledger])
-    ledger.save
+    ledger = Ledger.create(req.params[:ledger])
     json = ";#{callback}(#{ledger.to_json});"
   end
   [ 200, {'Content-Type' => 'application/json',
